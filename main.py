@@ -111,14 +111,14 @@ class Otsu(object):
         top_most = self.find_top_most(bg_hsv, from_x, to_x, from_y, to_y, step)
         lr_most = self.find_lr_most(bg_hsv, from_x, to_x, from_y, to_y, step)
         return top_most, lr_most
-
+    # 扫描出 右上角的点
     def find_top_most(self, bg_hsv, from_x, to_x, from_y, to_y, step):
         for y in range(from_y, to_y):
             for x in range(from_x, to_x, step):
                 h, s, v = self.rgb_to_hsv(*self.pixels[x, y])
                 if not self.is_same_color(h, s, v, bg_hsv):
                     return x, y
-
+    # 扫描出 左下角的点
     def find_lr_most(self, bg_hsv, from_x, to_x, from_y, to_y, step):
         for x in range(from_x, to_x, step):
             for y in range(from_y, to_y):
@@ -161,8 +161,7 @@ def run_cmd(cmd):
     return stdout, stderr
 
 
-# directory where screenshot image will be saved in.
-# if you use Windows, e.g 'c:/wechat_micro_jump_game_screenshot'
+
 screenshot_director = '/tmp/wechat_micro_jump_game_screenshot'
 if not osp.exists(screenshot_director):
     os.makedirs(screenshot_director)
@@ -174,7 +173,7 @@ while True:
         debug = False
 
         if debug:
-            # your last failed image name
+          
             fn = '6.png'
             fp = osp.join(screenshot_director, fn)
         else:
@@ -192,8 +191,7 @@ while True:
         if debug:
             raise KeyboardInterrupt
         else:
-            # random tap position
-            # anti-wechat detect
+            
             rand_x = lambda: random.randint(0, otsu.w)
             rand_y = lambda: random.randint(0, otsu.h * 3 / 4)
             x1, y1 = rand_x(), rand_y()
